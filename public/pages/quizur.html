@@ -1,0 +1,232 @@
+<html>
+<head>
+	<title></title>
+	<script src="https://fb.me/react-0.14.2.min.js"></script>
+	<script src="https://fb.me/react-dom-0.14.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+  <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+  <link rel="stylesheet" href="css/base.css" />
+	<script type="text/babel">
+    //  var data = {
+    //   quizzes: [
+    //     {
+    //       id: 1,
+    //       question: 'Who won Champions League in 2005?',
+    //       category: 'soccer',
+    //       options: [
+    //         'Liverpool',
+    //         'AC Milan',
+    //         'Barcelona',
+    //         'Real Madrid'
+    //       ],
+    //       correct_answer: 'Liverpool'
+    //     },
+    //     {
+    //       id: 2,
+    //       question: 'What is the capital of Canada?',
+    //       category: 'geography',
+    //       options: [
+    //         'Ottawa',
+    //         'Toronto',
+    //         'Montreal',
+    //         'Vancouver'
+    //       ],
+    //       correct_answer: 'Ottawa'
+    //     },
+    //   ],
+    // };
+
+//     class QuizApp extends React.Component {
+//       render() {
+//         return (
+//           <div>
+//             {this.props.data.quizzes.map(quiz => <Quiz {...quiz} />)}
+//           </div>
+//         );
+//       }
+//     }
+
+// class Quiz extends React.Component {
+
+//   onChange() {
+    
+//     console.log('head');
+//   },
+
+//   render() {
+//     return (
+//       // <div className="hidden">
+//       //   {this.props.question}
+//       // {this.props.options.map(option => <label><input type="radio" defaultChecked={false} />{option}<br/></label>)}
+//       // </div>
+//       <div>
+//         {this.props.question}
+//         <form>
+//           {this.props.options.map(option => <label><input type="radio" defaultChecked={false} onChange={this.onChange}/>{option}<br/></label>)}
+//         </form>
+//     </div>
+//       // <div className="hidden">
+//       //   {this.props.question}
+//       //   <ul>
+//       //     {this.props.options.map(option => <li>{option}</li>)}
+//       //   </ul>
+//       // </div>
+//     );
+//   }
+// }
+//{this.props.data.quizzes.map(quiz => <Quiz {...quiz} />)}
+//<Quiz {...this.props.data.quizzes[self.state.count]} />
+// <button>Previous</button>
+// <button>Next</button>
+
+//userQuizState: this.props.data.quizzes
+// <Quiz key={this.state.count} {...this.state.userQuizState[this.state.count]} /> 
+
+var myDataRef = new Firebase('https://torrid-heat-3232.firebaseio.com/');
+var _items = []
+// var data = {
+//           id: 1,
+//           question: 'Who won Champions League in 2005?',
+//           category: 'soccer',
+//           options: [
+//             'Liverpool',
+//             'AC Milan',
+//             'Barcelona',
+//             'Real Madrid'
+//           ],
+//           correct_answer: 'Liverpool'
+//         }
+
+  var QuizApp = React.createClass({
+    getInitialState: function() {
+    return {
+      count: 0,
+      items: [] 
+    }
+  },
+
+    componentWillMount: function() {
+        console.log('here!!!')
+          myDataRef.on("value", function(dataSnapshot) {
+            var items = [];
+            dataSnapshot.forEach(function(childSnapshot) {
+              var item = childSnapshot.val();
+              items.push(item);
+              console.log(items)
+            });
+              this.setState({
+                items: items
+              });
+          });
+      },
+
+      componentWillUnmount: function() {
+    myDataRef.off();
+  },
+
+
+    handleNext: function(answer) {
+      console.log(this.state.count)
+       this.setState({count: (this.state.count + 1) %  1000});
+      console.log(this.state.count)
+    },
+
+    handlePrevious: function(answer) {
+      console.log(this.state.count)
+      this.setState({count: ((this.state.count - 1 + 1000) %  1000)});
+      console.log(this.state.count)
+    },
+
+      render: function() {
+        return (
+          <div>
+          <Quiz key={this.state.count} {...this.state.items[this.state.count]} />  
+          <div>
+          <button onClick={this.handlePrevious}>Previous</button>
+          <button onClick={this.handleNext}>Next</button>
+          </div>
+          </div>
+
+        );
+      }
+    }
+    );
+
+  var Quiz = React.createClass({
+
+    getInitialState: function() {
+    console.log("getInitialState");
+    console.log(this.props);
+    return {
+      checked: -1, 
+      hidden: 'hidden',
+      button: ''
+    }
+  },
+
+  onChange: function(e) {
+    this.setState({checked: e.target.id});
+    // console.log(this.state.checked);
+    // Ask abt this
+    // if (this.state.checked === true) {
+    //   this.setState({button: ''});
+    // }
+  },
+
+  handleSubmit: function(e) {
+    e.preventDefault();
+    console.log("hs State: " + this.state.checked);
+    //this.setState({checked: false});
+    if (this.state.checked != -1) {
+      this.setState({hidden: ''});
+    }
+    
+    // if (this.state.hidden == 'hidden') {
+    //   this.setState({hidden: ''});
+    // }
+    // else {
+    //   this.setState({hidden: 'hidden'});
+    // }
+  },
+
+  optionIsChecked: function(current) {
+    if (current == this.state.checked) {
+      
+      return true;
+    }
+    return false;
+  },
+
+  render() {
+    return (
+      <div>
+        {this.data.question}
+        <form onSubmit={this.handleSubmit}>
+          {this.data.options.map(option => <label><input 
+            type="radio"
+            checked={this.optionIsChecked(this.data.options.indexOf(option))}
+            onChange={this.onChange}
+            id={this.data.options.indexOf(option)}
+            />{option}<br/></label>)}
+          <br/>
+          <div className={this.state.button}>
+          <input type="submit" value="Check" />
+          </div>
+        </form>
+        <div className={this.state.hidden}>
+      Correct Answer: {this.props.correct_answer}
+      </div>
+      <br/>
+    </div>
+    );
+  }
+});
+
+ReactDOM.render(<QuizApp />, document.getElementById('quizur'));
+
+</script>
+</head>
+<body>
+	<div id="quizur"/>
+</body>
+</html>

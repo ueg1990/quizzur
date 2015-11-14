@@ -1,0 +1,150 @@
+<html>
+<head>
+	<title></title>
+	<script src="https://fb.me/react-0.14.2.min.js"></script>
+	<script src="https://fb.me/react-dom-0.14.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+  <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+  <link rel="stylesheet" href="css/base.css" />
+	<script type="text/babel">
+    //  var data = {
+    //   quizzes: [
+    //     {
+    //       id: 1,
+    //       question: 'Who won Champions League in 2005?',
+    //       category: 'soccer',
+    //       options: [
+    //         'Liverpool',
+    //         'AC Milan',
+    //         'Barcelona',
+    //         'Real Madrid'
+    //       ],
+    //       correct_answer: 'Liverpool'
+    //     },
+    //     {
+    //       id: 2,
+    //       question: 'What is the capital of Canada?',
+    //       category: 'geography',
+    //       options: [
+    //         'Ottawa',
+    //         'Toronto',
+    //         'Montreal',
+    //         'Vancouver'
+    //       ],
+    //       correct_answer: 'Ottawa'
+    //     },
+    //   ],
+    // };
+    var myDataRef = new Firebase('https://torrid-heat-3232.firebaseio.com/');
+
+    var QuizQ = React.createClass({
+
+      getInitialState:function(){
+        return {selectValue:'',
+                question: ""};
+      },
+
+      handleSelection: function(e) {
+        this.setState({selectValue:e.target.value});
+      },
+
+      handleQuestion: function() {
+        this.setState({value: this.refs.textarea.value});
+      },
+
+      handleSubmit: function(e) {
+        e.preventDefault();
+          // var author = this.refs.author.value.trim();
+          // var text = this.refs.text.value.trim();
+          // if (!text || !author) {
+          //   return;
+          // }
+          // // TODO: send request to the server
+          // this.refs.author.value = '';
+          // this.refs.text.value = '';
+          // return;
+          console.log(this.refs)
+          var question = this.refs.textarea.value.trim();
+          var option1 = this.refs.option1.value.trim();
+          var option2 = this.refs.option2.value.trim();
+          var option3 = this.refs.option3.value.trim();
+          var option4 = this.refs.option4.value.trim();
+          var select = this.refs.select.value.trim();
+          var solution = this.refs.solution.value.trim();
+          console.log(question, option1, option2, option3, option4, select, solution)
+
+          // data.quizzes.unshift([{id: 3,
+          // question: question,
+          // category: select,
+          // options: [
+          //   option1,
+          //   option2,
+          //   option3,
+          //   option4
+          // ],
+          // correct_answer: solution}])
+
+          myDataRef.push({id: 3,
+          question: question,
+          category: select,
+          options: [
+            option1,
+            option2,
+            option3,
+            option4
+          ],
+          correct_answer: solution});
+          //myDataRef.push({name: name, text: text});
+
+          //console.log(data)
+
+          this.refs.textarea.value = '';
+          this.refs.option1.value = '';
+          this.refs.option2.value = '';
+          this.refs.option3.value = '';
+          this.refs.option4.value = '';
+          this.refs.select.value = '';
+          this.refs.solution.value = '';
+          return;
+      },
+
+      render() {
+      return (
+        <form className="quizq" onSubmit={this.handleSubmit}>
+          <div><textarea onChange={this.handleQuestion}
+          ref="textarea" placeholder="Enter your question here..."
+          defaultValue={this.state.question} /></div>
+          <br/>
+          <div><input ref="option1" type="text" placeholder="Option 1" /></div>
+          <br/>
+          <div><input ref="option2" type="text" placeholder="Option 2" /></div>
+          <br/>
+          <div><input ref="option3" type="text" placeholder="Option 3" /></div>
+          <br/>
+          <div><input ref="option4" type="text" placeholder="Option 4" /></div>
+          <br/>
+          <div><select value={this.state.selectValue} ref="select"
+            onChange={this.handleSelection} >
+            <option value="soccer">soccer</option>
+            <option value="geography">geography</option>
+            <option value="education">education</option>
+          </select></div>
+          <br/>
+          <div><input ref="solution" type="text" placeholder="Solution" /></div>
+          <br/>
+          <div><input type="submit" value="Submit" /></div>
+          <br/>
+        </form>
+    );
+      }
+    });
+    
+
+ReactDOM.render(<QuizQ />, document.getElementById('quizq'));
+
+</script>
+</head>
+<body>
+	<div id="quizq"/>
+</body>
+</html>
