@@ -188,9 +188,13 @@ ReactDOM.render(<QuizApp />, document.getElementById('quizur'));
   </div>
 </nav>
   <!-- <div id="quizq"/> -->
-  <div class="col-md-4 col-md-offset-4" id="quizur" />
+  
+      <div class="col-md-4 col-md-offset-4" id="quizur" style="position:absolute;top:25px;"></div>
 
-  <div id="disqus_thread"></div>
+  
+<div>
+
+ <div id="disqus_thread" style="position:absolute;top:400px;left:375px;"></div> 
 <script>
 /**
 * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
@@ -212,6 +216,7 @@ s.setAttribute('data-timestamp', +new Date());
 })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
 
 <script id="dsq-count-scr" src="//quizur.disqus.com/count.js" async></script>
   
