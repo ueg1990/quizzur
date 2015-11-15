@@ -5,7 +5,42 @@
 	<script src="https://fb.me/react-dom-0.14.2.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
   <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="css/base.css" />
+  <style type="text/css">
+      .radioinput {
+        margin-right: 10px;
+      }
+
+      
+
+      #answer {
+        position: absolute;
+        top: 200px;
+      }
+
+      .next {
+        position: absolute;
+        right: -150px;
+        top: 150px;
+      }
+
+      .previous {
+        position: absolute;
+        left: -400px;
+        top: 150px;
+      }
+
+      .question {
+        position: absolute;
+        top: 150px;
+      }
+
+
+
+  </style>
 	<script type="text/babel">
     var QuizApp = React.createClass({
       getInitialState: function() {
@@ -41,7 +76,7 @@
     handlePrevious: function(answer) {
       console.log(this.state.count);
       var length = this.state.items.length;
-      this.setState({count: ((this.state.count - 1) % length)});
+      this.setState({count: ((this.state.count - 1 + length) % length)});
       console.log(this.state.count)
     },
 
@@ -52,12 +87,17 @@
           this.state.items.length ?
             <Quiz key={this.state.count} {...this.state.items[this.state.count]} /> : null
         }
-        <div>
-        <button onClick={this.handlePrevious}>Previous</button>
-        <button onClick={this.handleNext}>Next</button>
+        <div className={this.state.button} id="direction">
+              <div className="col-lg-10 col-lg-offset-2" id="arrows">
+                
+                <img src="left.png" className="previous" width="128" height="128" onClick={this.handlePrevious}/>
+                <img src="right.png" className="next" width="128" height="128" onClick={this.handleNext}/>
+                
+                
+              </div>
+            </div>
         </div>
-        </div>
-
+        
       );
     }
   }
@@ -97,7 +137,65 @@
 
   render() {
     return (
-      <div>
+      <div className="question">
+        <b>{this.props.question}</b>
+        <form className="form-horizontal">
+          <fieldset>
+            <div className="form-group">
+                  <div className="col-lg-10">
+                {this.props.options.map(option => <div className="radio"><label><input 
+                  type="radio" className="radioinput"
+                  checked={this.optionIsChecked(this.props.options.indexOf(option))}
+                  onChange={this.onChange}
+                  id={this.props.options.indexOf(option)}
+                  />{option}<br/></label></div>)}
+                  </div>
+            </div>
+        </fieldset>
+            <div class="form-group">
+              <div className="col-lg-10 col-lg-offset-2">
+                <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
+              </div>
+            </div>
+        </form>
+        <div className={this.state.hidden} id="answer">
+            <b>Correct Answer:</b> {this.props.correct_answer}
+        </div>
+      </div>
+    );
+  }
+});
+ReactDOM.render(<QuizApp />, document.getElementById('quizur'));
+
+</script>
+</head>
+<body>
+	<nav class="navbar navbar-default">
+  <div class="container-fluid" style="background-color:#1C1D1F">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/" style="color:white">Quizur - Reddit for Images</a>
+    </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="quizq.html">Quizq</a></li>
+      </ul>
+    
+  </div>
+</nav>
+  <!-- <div id="quizq"/> -->
+  <div class="col-md-4 col-md-offset-4" id="quizur" />
+  
+</body>
+</html>
+<!-- 
+
+<button type="submit" className="btn btn-primary" id="next" onClick={this.handleNext}>Next</button>
+<div>
         {this.props.question}
         <form onSubmit={this.handleSubmit}>
           {this.props.options.map(option => <label><input 
@@ -115,16 +213,4 @@
       Correct Answer: {this.props.correct_answer}
       </div>
       <br/>
-    </div>
-    );
-  }
-});
-
-ReactDOM.render(<QuizApp />, document.getElementById('quizur'));
-
-</script>
-</head>
-<body>
-	<div id="quizur"/>
-</body>
-</html>
+    </div> -->

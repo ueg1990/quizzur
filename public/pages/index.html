@@ -4,12 +4,69 @@
 	<script src="https://fb.me/react-0.14.2.min.js"></script>
 	<script src="https://fb.me/react-dom-0.14.2.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
-  <link rel="stylesheet" href="pages/css/base.css" />
-	<script type="text/babel">
-	</script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  	<link rel="stylesheet" href="pages/css/base.css" />
+	<script type="text/babel"></script>
 </head>
 <body>
-	<div><a href="pages/quizur.html">Quizur</a></div>
-	<div><a href="pages/quizq.html">Quizq</a></div>
+	<!-- <div><a href="pages/quizur.html">Quizur</a></div>
+	<div><a href="pages/quizq.html">Quizq</a></div> -->
+
+	<nav class="navbar navbar-default">
+  <div class="container-fluid" style="background-color:#1C1D1F">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/" style="color:white">Quizur - Reddit for Images</a>
+    </div>
+    	<ul class="nav navbar-nav navbar-right">
+        <li><a href="pages/quizur.html">Quizur</a></li>
+        <li><a href="pages/quizq.html">Quizq</a></li>
+      </ul>
+    
+  </div>
+</nav>
+
+	<div class="panel panel-default" style="max-width:400px;margin-left:auto; margin-right:auto;vertical-align : middle;">
+	  <div class="panel-heading">What would you like to do?</div>
+	  <div class="panel-body">
+	    <a href="pages/quizur.html">Quizur</a> - Start solving quizzes
+	  </div>
+	   <div class="panel-body">
+	    <a href="pages/quizq.html">Quizq</a> - Create a quiz question
+	  </div>
+	</div>
 </body>
 </html>
+
+<!-- // <form className="quizq" onSubmit={this.handleSubmit}>
+        //   <div><textarea onChange={this.handleQuestion}
+        //   ref="textarea" placeholder="Enter your question here..."
+        //   defaultValue={this.state.question} /></div>
+        //   <br/>
+        //   <div><input ref="option1" type="text" placeholder="Option 1" /></div>
+        //   <br/>
+        //   <div><input ref="option2" type="text" placeholder="Option 2" /></div>
+        //   <br/>
+        //   <div><input ref="option3" type="text" placeholder="Option 3" /></div>
+        //   <br/>
+        //   <div><input ref="option4" type="text" placeholder="Option 4" /></div>
+        //   <br/>
+        //   <div><select value={this.state.selectValue} ref="select"
+        //     onChange={this.handleSelection} >
+        //     <option value="soccer">soccer</option>
+        //     <option value="geography">geography</option>
+        //     <option value="education">education</option>
+        //   </select></div>
+        //   <br/>
+        //   <div><input ref="solution" type="text" placeholder="Solution" /></div>
+        //   <br/>
+        //   <div><input type="submit" value="Submit" /></div>
+        //   <br/>
+        // </form> -->
