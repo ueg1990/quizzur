@@ -7,34 +7,6 @@
   <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
   <link rel="stylesheet" href="css/base.css" />
 	<script type="text/babel">
-    //  var data = {
-    //   quizzes: [
-    //     {
-    //       id: 1,
-    //       question: 'Who won Champions League in 2005?',
-    //       category: 'soccer',
-    //       options: [
-    //         'Liverpool',
-    //         'AC Milan',
-    //         'Barcelona',
-    //         'Real Madrid'
-    //       ],
-    //       correct_answer: 'Liverpool'
-    //     },
-    //     {
-    //       id: 2,
-    //       question: 'What is the capital of Canada?',
-    //       category: 'geography',
-    //       options: [
-    //         'Ottawa',
-    //         'Toronto',
-    //         'Montreal',
-    //         'Vancouver'
-    //       ],
-    //       correct_answer: 'Ottawa'
-    //     },
-    //   ],
-    // };
     var myDataRef = new Firebase('https://torrid-heat-3232.firebaseio.com/');
 
     var QuizQ = React.createClass({
@@ -49,20 +21,11 @@
       },
 
       handleQuestion: function() {
-        this.setState({value: this.refs.textarea.value});
+          this.setState({value: this.refs.textarea.value});
       },
 
       handleSubmit: function(e) {
-        e.preventDefault();
-          // var author = this.refs.author.value.trim();
-          // var text = this.refs.text.value.trim();
-          // if (!text || !author) {
-          //   return;
-          // }
-          // // TODO: send request to the server
-          // this.refs.author.value = '';
-          // this.refs.text.value = '';
-          // return;
+          e.preventDefault();
           console.log(this.refs)
           var question = this.refs.textarea.value.trim();
           var option1 = this.refs.option1.value.trim();
@@ -71,18 +34,6 @@
           var option4 = this.refs.option4.value.trim();
           var select = this.refs.select.value.trim();
           var solution = this.refs.solution.value.trim();
-          console.log(question, option1, option2, option3, option4, select, solution)
-
-          // data.quizzes.unshift([{id: 3,
-          // question: question,
-          // category: select,
-          // options: [
-          //   option1,
-          //   option2,
-          //   option3,
-          //   option4
-          // ],
-          // correct_answer: solution}])
 
           myDataRef.push({id: 3,
           question: question,
@@ -94,10 +45,6 @@
             option4
           ],
           correct_answer: solution});
-          //myDataRef.push({name: name, text: text});
-
-          //console.log(data)
-
           this.refs.textarea.value = '';
           this.refs.option1.value = '';
           this.refs.option2.value = '';

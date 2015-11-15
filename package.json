@@ -1,0 +1,30 @@
+{
+  "name": "quizur",
+  "version": "0.1.0",
+  "description": "Reddit for Quizzes",
+  "main": "app.js",
+  "dependencies": {
+    "express": "~4.13.3",
+    "html": "~0.0.10",
+    "node-inspector": "~0.12.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ueg1990/quizzur.git"
+  },
+  "keywords": [
+    "react",
+    "node",
+    "javascript"
+  ],
+  "author": "Usman Ehtesham Gul",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ueg1990/quizzur/issues"
+  },
+  "homepage": "https://github.com/ueg1990/quizzur"
+}
